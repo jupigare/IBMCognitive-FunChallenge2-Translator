@@ -2,7 +2,7 @@ applications:
 - path: .
   memory: 256M
   instances: 1
-  domain: eu-gb.mybluemix.net
-  name: sky-bluemix-starter-2
-  host: sky-bluemix-starter-2
+  domain: mybluemix.net
+  name: Fun Challenge 2 - Translator
+  host: Fun-Challenge-2---Translator
   disk_quota: 1024M

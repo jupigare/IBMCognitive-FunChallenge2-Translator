@@ -17,6 +17,8 @@ const app = express();
 app.set('port', config.PORT);
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, './client')));
+app.use(express.static(path.join(__dirname, './../bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(domainMiddleware);
@@ -26,7 +28,7 @@ const apiRouter = new express.Router();
 
 loadRoutes(apiRouter, routes);
 
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 
 app.use(errorHandler({
   log: ({err, req, body}) => {
