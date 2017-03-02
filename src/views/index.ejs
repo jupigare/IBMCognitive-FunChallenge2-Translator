@@ -7,42 +7,42 @@
 <body>
 <h1>Cognative Company</h1>
 <form action="/api/v1/translate/" method="GET">
-	<h2>Source String</h2>
-	
-	<p>Enter Source String  <br />
-	<input name="sourceText" maxlength="1000" required ></input> <br />
-	Enter Source String in English (less than 1000 characters)</p>
+  <h2>Source String</h2>
+  
+  <p>Enter Source String  <br />
+  <input name="sourceText" maxlength="1000" required ></input> <br />
+  Enter Source String in English (less than 1000 characters)</p>
 
-	<p>Destination Language
-	<select name="destinationLanguageCode"> <br />
-		<option value="es">Spanish</option>
-		<option value="po">Portuguese</option>
-		<option value="fr">French</option>
-		<option value="ge">German</option>
-		<option value="it">Italian</option>
-		<option value="ar">Arabic</option>
-	</select> <br />
-	Enter the translated language </p>
+  <p>Destination Language
+  <select name="destinationLanguageCode"> <br />
+    <option value="es">Spanish</option>
+    <option value="po">Portuguese</option>
+    <option value="fr">French</option>
+    <option value="ge">German</option>
+    <option value="it">Italian</option>
+    <option value="ar">Arabic</option>
+  </select> <br />
+  Enter the translated language </p>
 
-	<input type="submit" value="Translate & Analyze" />	
+  <input type="submit" value="Translate & Analyze" />  
 </form>
 <a href="/"><button>Reset</button></a>
 
 <table>
-	<thead>
-		<tr>
-			<td>Source Text</td>
-			<td>Destination Language</td>
-			<td>Translated Text</td>
-		</tr>
-	</thead>
-	<tbody>
-		<% data.forEach(function(row) { %><tr>
-			<td><%= row.sourceText %></td>
-			<td><%= row.destinationLanguage %></td>
-			<td><%= row.translatedText %></td>
-		</tr><% }) %>
-	</tbody>
+  <thead>
+    <tr>
+      <td>Source Text</td>
+      <td>Destination Language</td>
+      <td>Translated Text</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.forEach(function (row) {%><tr>
+      <td><%= row.sourceText %></td>
+      <td><%= row.destinationLanguage %></td>
+      <td><%= row.translatedText %></td>
+    </tr><% }) %>
+  </tbody>
 </table>
 </body>
 </html>
