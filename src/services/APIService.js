@@ -14,9 +14,24 @@ export default APIService;
 
 function credentials() {
 	return {
-		tone_user: "{username}",
-		tone_pass: "{password}",
-		translate_user: "{username}",
-	    translate_pass: "{password}",
+		tone: {
+			username: "{username}",
+			password: "{password}",
+		  	version: 'v3',
+		  	version_date: '2016-05-19'
+		},
+		translate: {
+			username: "{username}",
+		    password: "{password}",
+			version: 'v2',
+			url: 'https://gateway.watsonplatform.net/language-translator/api/'			
+		},
+		db: {
+		    username: "{username}",
+		    password: "{password}",
+	        host: "{username}.cloudant.com",
+	        port: "{port}",
+	        url: "https://{username}:{password}@{username}.cloudant.com"			
+		}
 	}
 }

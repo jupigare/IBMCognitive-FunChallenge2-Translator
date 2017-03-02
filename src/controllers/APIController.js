@@ -2,17 +2,14 @@ import APIService from '../services/APIServiceMine';
 var credentials = APIService.credentials();
 
 var watson = require('watson-developer-cloud');
-var tone_analyzer = watson.tone_analyzer({
-	username: credentials.tone_user,
-	password: credentials.tone_pass,
-  	version: 'v3',
-  	version_date: '2016-05-19'
-});
-var language_translator = watson.language_translator({
-	username: credentials.translate_user,
-	password: credentials.translate_pass,
-	version: 'v2',
-	url: 'https://gateway.watsonplatform.net/language-translator/api/'
+var tone_analyzer = watson.tone_analyzer(credentials.tone);
+var language_translator = watson.language_translator(credentials.translate);
+
+var Cloudant = require('cloudant');
+var cloudant = Cloudant({account:credentials.db.username, password:credentials.db.password});
+cloudant.db.list(function(err, allDbs) {
+	console.log('Successfully connected to Cloudant DB');
+	console.log('All my databases: %s', allDbs.join(', '));
 });
 
 export default {
