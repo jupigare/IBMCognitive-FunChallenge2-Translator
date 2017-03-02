@@ -1,27 +1,22 @@
-var watson = require('watson-developer-cloud');
-
 // ------------------------------------
 // Exports
 // ------------------------------------
 
 const APIService = {
-	tone_analyzer,
-	language_translator,
+	credentials
 };
-
-decorate(APIService, 'APIService');
 
 export default APIService;
 
-var tone_analyzer = watson.tone_analyzer({
-	username: "USERNAME",
-	password: "PASSWORD",
-  	version: 'v3',
-  	version_date: '2016-05-19'
-});
-var language_translator = watson.language_translator({
-	username: "USERNAME",
-	password: "PASSWORD",
-	version: 'v2',
-	url: 'https://gateway.watsonplatform.net/language-translator/api/'
-});
+// ------------------------------------
+// Public
+// ------------------------------------
+
+function credentials() {
+	return {
+		tone_user: "{username}",
+		tone_pass: "{password}",
+		translate_user: "{username}",
+	    translate_pass: "{password}",
+	}
+}

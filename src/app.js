@@ -12,6 +12,7 @@ import './bootstrap';
 import routes from './routes';
 import loadRoutes from './common/loadRoutes';
 import logger from './common/logger';
+import path from 'path';
 
 const app = express();
 app.set('port', config.PORT);

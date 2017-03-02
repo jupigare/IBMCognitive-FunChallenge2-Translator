@@ -1,6 +1,19 @@
-import API from '../services/APIService';
-var tone_analyzer = API.tone_analyzer;
-var language_translator = API.language_translator;
+import APIService from '../services/APIServiceMine';
+var credentials = APIService.credentials();
+
+var watson = require('watson-developer-cloud');
+var tone_analyzer = watson.tone_analyzer({
+	username: credentials.tone_user,
+	password: credentials.tone_pass,
+  	version: 'v3',
+  	version_date: '2016-05-19'
+});
+var language_translator = watson.language_translator({
+	username: credentials.translate_user,
+	password: credentials.translate_pass,
+	version: 'v2',
+	url: 'https://gateway.watsonplatform.net/language-translator/api/'
+});
 
 export default {
 	history,
@@ -9,22 +22,23 @@ export default {
 
 function history(req, res) {
 	//To Add: retrieve history from Cloudant NoSQL DB
-	result = "History results here.";
+	var result = "History results here.";
 	res.json(result);
 }
 function translate(req, res) {
-	console.log("Source String:", req.query.text);
-	console.log("Dest Language:", req.query.language);
+	console.log("Source String:", req.params.sourceText);
+	console.log("Dest Language:", req.params.destinationLanguageCode);
 	language_translator.translate({
-		text: req.query.text,
+		text: req.params.sourceText,
 		source: 'en',
-		target: req.query.language 
+		target: req.params.destinationLanguageCode 
 		}, async function (err, translation) {
+			// var result = translation;
 			if (err) {
 				console.log('translate() error:', err);
 				var result = {'error':err};
 			} else {
-				var sourceTextTone = await toneAnalyze(req.query.text);
+				var sourceTextTone = await toneAnalyze(req.params.sourceText);
 				var translatedText = translation.translations[0].translation;
 				var translatedTextTone = await toneAnalyze(translatedText);
 				var result = {
@@ -32,7 +46,7 @@ function translate(req, res) {
 					'translatedText':translatedText,
 					'translatedTextTone':translatedTextTone
 				};
-				//To Add: write results data to Cloundant NoSQL DB
+				// To Add: write results data to Cloundant NoSQL DB
 			}
 			res.json(result);
 		}
