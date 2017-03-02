@@ -1,4 +1,6 @@
-// Note: This file only needs to be run once (when first setting up the server) in order to initialize the db
+/**
+ * Note: This file only needs to be run once (when first setting up the server) in order to initialize the db
+ */
 
 require('dotenv').load();
 const Cloudant = require('cloudant');

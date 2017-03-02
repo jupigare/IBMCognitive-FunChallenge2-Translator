@@ -3,12 +3,14 @@
 <head>
 <title>Cognative Company</title>
 <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <h1>Cognative Company</h1>
 <form action="/api/v1/translate/" method="GET">
   <h2>Source String</h2>
-  
+
   <p>Enter Source String  <br />
   <input name="sourceText" maxlength="1000" required ></input> <br />
   Enter Source String in English (less than 1000 characters)</p>
@@ -24,9 +26,9 @@
   </select> <br />
   Enter the translated language </p>
 
-  <input type="submit" value="Translate & Analyze" />  
+  <input type="submit" value="Translate & Analyze" />
 </form>
-<a href="/"><button>Reset</button></a>
+<button onClick="location.reload()">Reset</button>
 
 <table>
   <thead>

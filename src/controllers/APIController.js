@@ -33,11 +33,7 @@ export default {
 
 function history(req, res) {
   // Retrieve history from Cloudant NoSQL DB
-  if (req.params.num) {
-    const num = req.params.num;
-  } else {
-    const num = 5;
-  }
+  const num = req.params.num || 5;
   db.list(
     {
       descending: true,
@@ -49,8 +45,7 @@ function history(req, res) {
         console.log('Error retrieving history:', err);
         const result = err;
       } else {
-        console.log('Successfully retrieved history:', data);
-        // const result = data;
+        console.log(`Successfully retrieved history (${num} entries)`);
         var result = [];
         for (var i=0; i<data.rows.length; i++) {
           result.push({
@@ -66,11 +61,7 @@ function history(req, res) {
   );
 }
 function translate (req, res) {
-  if (req.query) {
-    const inputs = req.query;
-  } else {
-    const inputs = req.params;
-  }
+  const inputs = req.query || req.params;
   console.log('Inputs:', inputs.sourceText, inputs.destinationLanguageCode);
   languageTranslator.translate(
     {
@@ -82,8 +73,9 @@ function translate (req, res) {
       if (err) {
         console.log('translate() error:', err);
         const result = {error: err};
+        res.render('results', {data: result});
       } else {
-        const sourceTextTone = await tone(inputs.sourceText);
+        var sourceTextTone = await tone(inputs.sourceText);
         const translatedText = translation.translations[0].translation;
         // Write transation data to Cloundant NoSQL DB
         db.insert(
@@ -92,29 +84,25 @@ function translate (req, res) {
             destinationLanguageCode: inputs.destinationLanguageCode,
             translatedText: translatedText,
           },
-          function (err, body) {
-          if (err) {
-            console.log('Error adding to db:', err);
-          } else {
-            console.log(body);
+          async function (err, body) {
+            if (err) {
+              console.log('Error adding to db:', err);
+              const result = {error: err};
+            } else {
+              console.log('Successfully added translation to db');
+              var translatedTextTone = await tone(translatedText);
+              const result = {
+                sourceTextTone: sourceTextTone,
+                sourceText: inputs.sourceText,
+                destinationLanguage: languages[inputs.destinationLanguageCode],
+                translatedText: translatedText,
+                translatedTextTone: translatedTextTone,
+              };
+              res.render('results', {data: result});
+            }
           }
-        });
-
-        const translatedTextTone = await tone(translatedText);
-        const result = {
-          sourceTextTone: sourceTextTone,
-          sourceText: inputs.sourceText,
-          destinationLanguage: languages[inputs.destinationLanguageCode],
-          translatedText: translatedText,
-          translatedTextTone: translatedTextTone,
-        };
-        // console.log(result.sourceTextTone[0].tone_name, result.sourceTextTone[0].score, result.translatedTextTone[0].score);
-        // console.log(result.sourceTextTone[1].tone_name, result.sourceTextTone[1].score, result.translatedTextTone[1].score);
-        // console.log(result.sourceTextTone[2].tone_name, result.sourceTextTone[2].score, result.translatedTextTone[2].score);
-        // console.log(result.sourceTextTone[3].tone_name, result.sourceTextTone[3].score, result.translatedTextTone[3].score);
-        // console.log(result.sourceTextTone[4].tone_name, result.sourceTextTone[4].score, result.translatedTextTone[4].score);
+        );
       }
-      res.render('results', {data: result});
       // res.json(result);
     }
   );
