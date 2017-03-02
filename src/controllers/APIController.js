@@ -5,13 +5,18 @@ var watson = require('watson-developer-cloud');
 var tone_analyzer = watson.tone_analyzer(credentials.tone);
 var language_translator = watson.language_translator(credentials.translate);
 
+require('dotenv').load();
 var Cloudant = require('cloudant');
-var cloudant = Cloudant({account:credentials.db.username, password:credentials.db.password});
+var cloudant = Cloudant({account:process.env.cloudant_username, password:process.env.cloudant_password});
 cloudant.db.list(function(err, allDbs) {
-	console.log('Successfully connected to Cloudant DB');
-	console.log('All my databases: %s', allDbs.join(', '));
+	if (err) {
+		console.log("Error connecting to db:", err);
+	} else {	
+		console.log('Successfully connected to Cloudant DB');
+		console.log('All my databases: %s', allDbs.join(', '));
+		var db = cloudant.db.use('translatehistory');
+	}
 });
-var translateHistory = cloudant.db.use('translateHistory');
 
 export default {
 	history,
@@ -19,9 +24,17 @@ export default {
 };
 
 function history(req, res) {
-	//To Add: retrieve history from Cloudant NoSQL DB
-	var result = "History results here.";
-	res.json(result);
+	// var result = "History results here.";
+	//Retrieve history from Cloudant NoSQL DB
+	db.find({descending:true, limit:req.params.num}, function(err, result) {
+		if (err) {
+			console.log("Error retrieving history:", err);
+			var result = err;
+		} else {
+			console.log("HISTORY RESULT:", result);
+		}
+		res.json(result);
+	});
 }
 function translate(req, res) {
 	console.log("Source String:", req.params.sourceText);
