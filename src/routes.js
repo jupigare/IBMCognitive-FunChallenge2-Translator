@@ -11,6 +11,12 @@ export default {
 			public: true,
 		},
 	},
+	'/history': {
+		get: {
+			method: APIController.history,
+			public: true,
+		},
+	},
 	'/translate/:destinationLanguageCode/:sourceText': {
 		get: {
 			method: APIController.translate,

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Cognative Company</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<h1>Cognative Company</h1>
+<div>
+	<!-- form: translate -->
+</div>
+<table>
+	<thead>
+		<tr>
+			<td>Source Text</td>
+			<td>Destination Language</td>
+			<td>Translated Text</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% data.forEach(function(row) { %><tr>
+			<td><%= row.sourceText %></td>
+			<td><%= row.destinationLanguage %></td>
+			<td><%= row.translatedText %></td>
+		</tr><% }) %>
+	</tbody>
+</table>
+</body>
+</html>

@@ -18,8 +18,8 @@ const app = express();
 app.set('port', config.PORT);
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, './client')));
-app.use(express.static(path.join(__dirname, './../bower_components')));
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(domainMiddleware);

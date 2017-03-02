@@ -10,24 +10,46 @@ var Cloudant = require('cloudant');
 var cloudant = Cloudant({account:process.env.cloudant_username, password:process.env.cloudant_password});
 var db = cloudant.db.use('translatehistory');
 
+var languages = {
+	'en':"English",
+	'es':"Spanish",
+	'po':"Portuguese",
+	'fr':"French",
+	'ge':"German",
+	'it':"Italian",
+	'ar':"Arabic"
+};
+
 export default {
 	history,
 	translate
 };
 
 function history(req, res) {
-	// var result = "History results here.";
 	//Retrieve history from Cloudant NoSQL DB
-	// db.list(function(err, result) {
-	db.list({descending:true, limit:req.params.num, include_docs:true}, function(err, data) {
+	if (req.params.num) {
+		var num = req.params.num;
+	} else {
+		var num = 5;
+	}
+	db.list({descending:true, limit:num, include_docs:true}, function(err, data) {
 		if (err) {
 			console.log("Error retrieving history:", err);
 			var result = err;
 		} else {
 			console.log("Successfully retrieved history:", data);
-			var result = data;
+			// var result = data;
+			var result = [];
+			for (var i in data.rows) {
+				result.push({
+					sourceText:data.rows[i].doc.sourceText, 
+					destinationLanguage:languages[data.rows[i].doc.destinationLanguageCode], 
+					translatedText:data.rows[i].doc.translatedText
+				});
+			}
+			res.render('index', {data:result})
 		}
-		res.json(result);
+		// res.json(result);
 	});
 }
 function translate(req, res) {
@@ -38,7 +60,6 @@ function translate(req, res) {
 		source: 'en',
 		target: req.params.destinationLanguageCode 
 		}, async function (err, translation) {
-			// var result = translation;
 			if (err) {
 				console.log('translate() error:', err);
 				var result = {'error':err};
@@ -60,7 +81,8 @@ function translate(req, res) {
 					}
 				})
 			}
-			res.json(result);
+			res.render('results', {data:result})
+			// res.json(result);
 		}
 	);
 }
