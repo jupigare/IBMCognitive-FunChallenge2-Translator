@@ -11,6 +11,7 @@ cloudant.db.list(function(err, allDbs) {
 	console.log('Successfully connected to Cloudant DB');
 	console.log('All my databases: %s', allDbs.join(', '));
 });
+var translateHistory = cloudant.db.use('translateHistory');
 
 export default {
 	history,

@@ -42,3 +42,4 @@ jspm_packages
 
 # My personal settings
 *APIServiceMine.js
+/.env
