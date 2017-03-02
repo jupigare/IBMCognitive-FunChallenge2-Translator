@@ -10,6 +10,7 @@ var Cloudant = require('cloudant');
 var cloudant = Cloudant({account:process.env.cloudant_username, password:process.env.cloudant_password});
 var db = cloudant.db.use('translatehistory');
 
+var csrf = require('csurf');
 var languages = {
 	'en':"English",
 	'es':"Spanish",
@@ -47,41 +48,59 @@ function history(req, res) {
 					translatedText:data.rows[i].doc.translatedText
 				});
 			}
-			res.render('index', {data:result})
+			res.render('index', {data:result, csrfToken:csrf()});
 		}
 		// res.json(result);
 	});
 }
 function translate(req, res) {
-	console.log("Source String:", req.params.sourceText);
-	console.log("Dest Language:", req.params.destinationLanguageCode);
+	if (req.query) {
+		var inputs = req.query;
+	} else {
+		var inputs = req.params;
+	}
+	console.log("Inputs:", inputs.sourceText, inputs.destinationLanguageCode);
 	language_translator.translate({
-		text: req.params.sourceText,
+		text: inputs.sourceText,
 		source: 'en',
-		target: req.params.destinationLanguageCode 
+		target: inputs.destinationLanguageCode 
 		}, async function (err, translation) {
 			if (err) {
 				console.log('translate() error:', err);
 				var result = {'error':err};
 			} else {
-				var sourceTextTone = await toneAnalyze(req.params.sourceText);
+				var sourceTextTone = await toneAnalyze(inputs.sourceText);
 				var translatedText = translation.translations[0].translation;
-				var translatedTextTone = await toneAnalyze(translatedText);
-				var result = {
-					'sourceTextTone':sourceTextTone,
-					'translatedText':translatedText,
-					'translatedTextTone':translatedTextTone
-				};
-				// Write results data to Cloundant NoSQL DB
-				db.insert({sourceText: req.params.sourceText, destinationLanguageCode: req.params.destinationLanguageCode, translatedText:translatedText,}, function(err, body) {
+				// Write transation data to Cloundant NoSQL DB
+				db.insert(
+					{
+						sourceText:inputs.sourceText, 
+						destinationLanguageCode:inputs.destinationLanguageCode, 
+						translatedText:translatedText,
+					}, 
+					function(err, body) {
 					if (err) {
 						console.log("Error adding to db:", err);
 					} else {
 						console.log(body);
 					}
 				})
+
+				var translatedTextTone = await toneAnalyze(translatedText);
+				var result = {
+					'sourceTextTone':sourceTextTone,
+					'sourceText':inputs.sourceText,
+					'destinationLanguage':languages[inputs.destinationLanguageCode],
+					'translatedText':translatedText,
+					'translatedTextTone':translatedTextTone
+				};
+				// console.log(result.sourceTextTone[0].tone_name, result.sourceTextTone[0].score, result.translatedTextTone[0].score);
+				// console.log(result.sourceTextTone[1].tone_name, result.sourceTextTone[1].score, result.translatedTextTone[1].score);
+				// console.log(result.sourceTextTone[2].tone_name, result.sourceTextTone[2].score, result.translatedTextTone[2].score);
+				// console.log(result.sourceTextTone[3].tone_name, result.sourceTextTone[3].score, result.translatedTextTone[3].score);
+				// console.log(result.sourceTextTone[4].tone_name, result.sourceTextTone[4].score, result.translatedTextTone[4].score);
 			}
-			res.render('results', {data:result})
+			res.render('results', {data:result});
 			// res.json(result);
 		}
 	);

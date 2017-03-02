@@ -17,7 +17,21 @@ export default {
 			public: true,
 		},
 	},
-	'/translate/:destinationLanguageCode/:sourceText': {
+	// '/translate/?sourceText=:sourceText&destinationLanguageCode=:destinationLanguageCode': {
+	// '/translate/:destinationLanguageCode/:sourceText': {
+	// '/translate/:sourceText/:destinationLanguageCode': {
+	// 	get: {
+	// 		method: APIController.translate,
+	// 		public: true,
+	// 	},
+	// },
+	'/translate*': {
+		get: {
+			method: APIController.translate,
+			public: true,
+		},
+	},
+	'/translate': {
 		get: {
 			method: APIController.translate,
 			public: true,
