@@ -82,9 +82,10 @@ function translate (req, res) {
             destinationLanguageCode: inputs.destinationLanguageCode,
             translatedText: translatedText,
         }
-        // Check if document exists in Cloundant NoSQL DB
-        db.get(output, function(err, data) {
-            if (err) {
+        // Adds document if it doesn't exist yet in DB
+        db.find({selector:output}, function(err, data) {
+            if (err||data.docs.length==0) {
+              console.log('Did not locate translation; attempting to add it...');
               // If doesn't exist, write translation data to Cloundant NoSQL DB
               db.insert(output,
                 function (err, body) {
@@ -94,9 +95,11 @@ function translate (req, res) {
                   } else {
                     console.log('Successfully added translation to db');
                   }
-                };
+                }
               );
-            }   
+            } else {
+              console.log('Found translation in db:', data);
+            }
         });
         var translatedTextTone = await tone(translatedText);
         const result = {

@@ -14,26 +14,28 @@
 </head>
 <body>
 <h1>Cognative Company</h1>
-<h3>Source Text: <%= data.sourceText %></h3>
-<h3>Text Translated into <%= data.destinationlanguage %>: <%= data.translatedText %></h3>
-<table>
-  <thead>
-    <tr>
-      <th>Social Tone</th>
-      <th>Value for Source</th>
-      <th>Value for Translation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(var i=0; i<data.sourceTextTone.length; i++) {%><tr>
-      <td><%= data.sourceTextTone[i].tone_name %></td>
-      <td><%= data.sourceTextTone[i].score %></td>
-      <td><%= data.translatedTextTone[i].score %></td>
-    </tr><% } %>
-  </tbody>
-</table>
-<a href="/api/v1/history/"><button>Return</button></a>
+<div class="panel panel-primary">
+  <h3>Source Text: <%= data.sourceText %></h3>
+  <h3>Text Translated into <%= data.destinationlanguage %>: <%= data.translatedText %></h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Social Tone</th>
+        <th>Value for Source</th>
+        <th>Value for Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i=0; i<data.sourceTextTone.length; i++) {%><tr>
+        <td><%= data.sourceTextTone[i].tone_name %></td>
+        <td><%= data.sourceTextTone[i].score %></td>
+        <td><%= data.translatedTextTone[i].score %></td>
+      </tr><% } %>
+    </tbody>
+  </table>
+  <a href="/api/v1/history/"><button>Return</button></a>
 
-</table>
+  </table>
+</div>
 </body>
 </html>

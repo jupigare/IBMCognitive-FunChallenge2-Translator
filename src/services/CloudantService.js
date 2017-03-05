@@ -23,7 +23,7 @@ cloudant.db.list(function (err, allDbs) {
   console.log('All my databases: %s', allDbs.join(', '));
 });
 
-// Delete database if already exists
+// Resets db: Deletes if already exists
 cloudant.db.destroy('translatehistory', function (err) {
   if (err) {
     console.log('Error: Did not create db "translatehistory":', err);
