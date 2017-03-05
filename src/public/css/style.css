@@ -1,0 +1,21 @@
+h1 {
+  background:#3a75f5 url('/static/img/cognative-header-notext.jpg') no-repeat right center;
+  height:125px;
+  color:#fff;
+  padding:35px 20px 0;
+  margin:0;
+}
+
+h2 {
+  font-size:14pt;
+  margin:0;
+}
+
+div.panel, table {
+  padding:0;
+  margin:30px;
+}
+
+form {
+  padding:15px;
+}

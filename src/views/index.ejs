@@ -5,37 +5,48 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/static/css/style.css" rel="stylesheet">
 </head>
 <body>
 <h1>Cognative Company</h1>
-<form action="/api/v1/translate/" method="GET">
-  <h2>Source String</h2>
+<div class="panel panel-primary">
+  <h2 class="panel-heading">Source String</h2>
+  <form action="/api/v1/translate/" method="GET">
+    <div class="form-group">
+      <label for="sourceStr">Enter Source String</label>
+      <input name="sourceText" maxlength="1000" required class="form-control" id="sourceStr" aria-describedby="sourceStrHelp" />
+      <small id="sourceStrHelp" class="form-text text-muted">Enter Source String in English (less than 1000 characters)</small>
+    </div>
 
-  <p>Enter Source String  <br />
-  <input name="sourceText" maxlength="1000" required ></input> <br />
-  Enter Source String in English (less than 1000 characters)</p>
+    <div class="form-group">
+      <label for="destLangCode">Destination Language</label>
+      <select name="destinationLanguageCode" class="form-control" id="destLangCode" aria-describedby="destLangHelp">
+        <option value="es">Spanish</option>
+        <option value="po">Portuguese</option>
+        <option value="fr">French</option>
+        <option value="ge">German</option>
+        <option value="it">Italian</option>
+        <option value="ar">Arabic</option>
+      </select>
+      <small id="destLangHelp" class="form-text text-muted">Enter the translated language</small>
+    </div>
 
-  <p>Destination Language
-  <select name="destinationLanguageCode"> <br />
-    <option value="es">Spanish</option>
-    <option value="po">Portuguese</option>
-    <option value="fr">French</option>
-    <option value="ge">German</option>
-    <option value="it">Italian</option>
-    <option value="ar">Arabic</option>
-  </select> <br />
-  Enter the translated language </p>
+    <button type="submit" class="btn btn-primary">Translate & Analyze</button>
+    <a href="#" class="btn btn-primary" onClick="location.reload()">Reset</a>
+  </form>
+</div>
 
-  <input type="submit" value="Translate & Analyze" />
-</form>
-<button onClick="location.reload()">Reset</button>
-
-<table>
+<table class="table">
   <thead>
     <tr>
-      <td>Source Text</td>
-      <td>Destination Language</td>
-      <td>Translated Text</td>
+      <th>Source Text</th>
+      <th>Destination Language</th>
+      <th>Translated Text</th>
     </tr>
   </thead>
   <tbody>
