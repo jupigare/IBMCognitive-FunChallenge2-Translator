@@ -77,33 +77,37 @@ function translate (req, res) {
       } else {
         var sourceTextTone = await tone(inputs.sourceText);
         const translatedText = translation.translations[0].translation;
-        // Write transation data to Cloundant NoSQL DB
-        db.insert(
-          {
+        const output = {
             sourceText: inputs.sourceText,
             destinationLanguageCode: inputs.destinationLanguageCode,
             translatedText: translatedText,
-          },
-          async function (err, body) {
+        }
+        // Check if document exists in Cloundant NoSQL DB
+        db.get(output, function(err, data) {
             if (err) {
-              console.log('Error adding to db:', err);
-              const result = {error: err};
-            } else {
-              console.log('Successfully added translation to db');
-              var translatedTextTone = await tone(translatedText);
-              const result = {
-                sourceTextTone: sourceTextTone,
-                sourceText: inputs.sourceText,
-                destinationLanguage: languages[inputs.destinationLanguageCode],
-                translatedText: translatedText,
-                translatedTextTone: translatedTextTone,
-              };
-              res.render('results', {data: result});
-            }
-          }
-        );
+              // If doesn't exist, write translation data to Cloundant NoSQL DB
+              db.insert(output,
+                function (err, body) {
+                  if (err) {
+                    console.log('Error adding to db:', err);
+                    const result = {error: err};
+                  } else {
+                    console.log('Successfully added translation to db');
+                  }
+                };
+              );
+            }   
+        });
+        var translatedTextTone = await tone(translatedText);
+        const result = {
+          sourceTextTone: sourceTextTone,
+          sourceText: inputs.sourceText,
+          destinationLanguage: languages[inputs.destinationLanguageCode],
+          translatedText: translatedText,
+          translatedTextTone: translatedTextTone,
+        }
+        res.render('results', {data: result});
       }
-      // res.json(result);
     }
   );
 }
