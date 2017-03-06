@@ -6,16 +6,6 @@ h1 {
   margin:0;
 }
 
-h2 {
-  font-size:14pt;
-  margin:0;
-}
-
-div.panel, table {
-  padding:0;
-  margin:30px;
-}
-
-form {
-  padding:15px;
+.panel {
+  margin:15px;
 }

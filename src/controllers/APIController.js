@@ -56,7 +56,6 @@ function history(req, res) {
         }
         res.render('index', {data: result, csrfToken: csrf()});
       }
-      // res.json(result);
     }
   );
 }
@@ -85,7 +84,7 @@ function translate (req, res) {
         // Adds document if it doesn't exist yet in DB
         db.find({selector:output}, function(err, data) {
             if (err||data.docs.length==0) {
-              console.log('Did not locate translation; attempting to add it...');
+              console.log('Did not locate translation; attempting to add...');
               // If doesn't exist, write translation data to Cloundant NoSQL DB
               db.insert(output,
                 function (err, body) {
@@ -98,7 +97,7 @@ function translate (req, res) {
                 }
               );
             } else {
-              console.log('Found translation in db:', data);
+              console.log('Translation already exists in db; will not attempt to add');
             }
         });
         var translatedTextTone = await tone(translatedText);
