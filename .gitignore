@@ -44,3 +44,4 @@ jspm_packages
 *APIServiceMine.js
 /.env
 *desktop.ini
+*bluemix-deployment.txt

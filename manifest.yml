@@ -2,7 +2,7 @@ applications:
 - path: .
   memory: 256M
   instances: 1
-  domain: mybluemix.net
-  name: Fun Challenge 2 - Translator
-  host: Fun-Challenge-2---Translator
+  domain: YOURDOMAIN
+  name: YOURNAME
+  host: YOURHOST
   disk_quota: 1024M
