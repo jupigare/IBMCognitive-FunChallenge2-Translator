@@ -106,12 +106,13 @@ function translate(req, res) {
             }
         });
         const result = {
-          sourceTextTone: sourceTextTone,
           sourceText: inputs.sourceText,
+          sourceTextTone: sourceTextTone,
           destinationLanguage: languages[inputs.destinationLanguageCode],
           translatedText: translatedText,
           translatedTextTone: translatedTextTone,
         };
+        console.log('RESULTS:', result);
         res.render('results', {data: result});
       }
     }
