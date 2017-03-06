@@ -2,7 +2,7 @@ applications:
 - path: .
   memory: 256M
   instances: 1
-  domain: YOURDOMAIN
-  name: YOURNAME
-  host: YOURHOST
+  domain: mybluemix.net
+  name: tc-jupigare-02translate
+  host: tc-jupigare-02translate
   disk_quota: 1024M
