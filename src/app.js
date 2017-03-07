@@ -23,6 +23,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, './client')));
 app.use(express.static(path.join(__dirname, './../bower_components')));
 app.use('/static', express.static(path.join(__dirname, '/client/public')));
+app.use('/partials', express.static(path.join(__dirname, '/client/partials')));
 app.use('/bootstrap', express.static(path.join(__dirname, './../bower_components/bootstrap/dist')));
 app.use('/d3', express.static(path.join(__dirname, './../bower_components/d3')));
 app.use('/radar-chart-d3', express.static(path.join(__dirname, './../bower_components/radar-chart-d3/src')));
@@ -34,7 +35,7 @@ const apiRouter = new express.Router();
 
 loadRoutes(apiRouter, routes);
 
-app.use('/api/v1', apiRouter);
+app.use('/api/v1/', apiRouter);
 
 app.use(errorHandler({
   log: ({err, req, body}) => {

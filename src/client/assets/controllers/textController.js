@@ -21,7 +21,7 @@ function(TextsFactory, $scope, $route, $routeParams, $location, $filter) {
 
 	$scope.translation = function() {
 		// console.log("(angular textController) Translating text:", $scope.tr);
-		$location.url(`/translate/${$scope.tr.destinationLanguageCode}/${$scope.tr.sourceText}`);
+		$location.url(`translate/${$scope.tr.destinationLanguageCode}/${$scope.tr.sourceText}`);
 	}
 
 	$scope.reset = function() {
