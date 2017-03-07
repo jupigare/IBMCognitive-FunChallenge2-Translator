@@ -45,7 +45,8 @@ function history(req, res) {
       if (err) {
         console.log('Error retrieving history:', err);
         const result = err;
-        res.render('index', {data: result});
+        // res.render('index', {data: result});
+        res.json(result)
       } else {
         console.log(`Successfully retrieved history (${num} entries)`);
         var result = [];
@@ -56,7 +57,8 @@ function history(req, res) {
             translatedText: data.rows[i].doc.translatedText,
           });
         }
-        res.render('index', {data: result});
+        // res.render('index', {data: result});
+        res.json(result)
       }
     }
   );
@@ -74,7 +76,8 @@ function translate(req, res) {
       if (err) {
         console.log('translate() error:', err);
         const result = {error: err};
-        res.render('results', {data: result});
+        // res.render('results', {data: result});
+        res.json(result)
       } else {
         var sourceTextTone = await tone(inputs.sourceText);
         const translatedText = translation.translations[0].translation;
@@ -95,7 +98,8 @@ function translate(req, res) {
                   if (err) {
                     console.log('Error adding to db:', err);
                     const result = {error: err};
-                    res.render('results', {data: result});
+                    // res.render('results', {data: result});
+                    res.json(result)
                   } else {
                     console.log('Successfully added translation to db');
                   }
@@ -113,7 +117,8 @@ function translate(req, res) {
           translatedTextTone: translatedTextTone,
         };
         console.log('RESULTS:', result);
-        res.render('results', {data: result});
+        // res.render('results', {data: result});
+        res.json(result)
       }
     }
   );

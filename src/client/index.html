@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+<title>Cognative Company</title>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+<link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="/static/css/style.css" rel="stylesheet">
+<!-- Angular -->
+<script src="/angular/angular.js" charset="utf-8"></script>
+<script src="/angular-route/angular-route.js" charset="utf-8"></script>
+<script src="/angular-messages/angular-messages.js" charset="utf-8"></script>
+<script src="./assets/app.js" charset="utf-8"></script>
+<script src="./assets/factories/textsFactory.js" charset="utf-8"></script>
+<script src="./assets/controllers/textController.js" charset="utf-8"></script>
+<script src="./assets/controllers/translateController.js" charset="utf-8"></script>
+</head>
+<body ng-controller="textController">
+<h1 class="text-uppercase">Cognative Company</h1>
+<div ng-view><!-- partials will load here --></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Source String</h3>
+  </div>
+  <div class="panel-body">
+    <form name="translateForm" ng-submit="translation()" method="GET">
+      <div class="form-group">
+        <label for="sourceStr">Enter Source String</label>
+        <input name="sourceText" ng-model="tr.sourceText" ng-maxlength="1000" required class="form-control" id="sourceStr" aria-describedby="sourceStrHelp" />
+        <small id="sourceStrHelp" class="form-text text-muted">Enter Source String in English (less than 1000 characters)</small>
+      </div>
+
+      <div class="form-group">
+        <label for="destLangCode">Destination Language</label>
+        <select name="destinationLanguageCode" ng-model="tr.destinationLanguageCode" class="form-control" id="destLangCode" aria-describedby="destLangHelp">
+          <option value="es">Spanish</option>
+          <option value="po">Portuguese</option>
+          <option value="fr">French</option>
+          <option value="it">Italian</option>
+          <option value="ar">Arabic</option>
+        </select>
+        <small id="destLangHelp" class="form-text text-muted">Enter the translated language</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Translate & Analyze</button>
+      <a href="#" class="btn btn-primary" onClick="location.reload()">Reset</a>
+      <!-- <button ng-click="reset(tr)">Reset</button> -->
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">History</h3>
+  </div>
+  <div class="panel-body">
+    <table ng-if="texts.length>0" class="table">
+      <thead>
+        <tr>
+          <th>Source Text</th>
+          <th>Destination Language</th>
+          <th>Translated Text</th>
+        </tr>
+      </thead>
+      <tbody>
+    		<tr ng-repeat="text in texts">
+    			<td ng-bind="text.sourceText"></td>
+    			<td ng-bind="text.destinationLanguage"></td>
+    			<td ng-bind="text.translatedText">"</td>
+    		</tr>
+      </tbody>
+    </table>
+    <p ng-if="texts.length<1">
+    	No translations found in history.
+    </p>
+  </div>
+</div>

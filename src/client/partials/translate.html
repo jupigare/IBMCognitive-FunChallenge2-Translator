@@ -1,0 +1,27 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Results</h3>
+  </div>
+  <div class="panel-body">
+	<h4>Source Text: "{{data.sourceText}}"</h4>
+	<h4>Translated Text ({{data.destinationLanguage}}): "{{data.translatedText}}"</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Social Tone</th>
+          <th>Value for Source</th>
+          <th>Value for Translation</th>
+        </tr>
+      </thead>
+      <tbody>
+    		<tr ng-repeat="tone in data.sourceTextTone">
+    			<td ng-bind="tone.tone_name"></td>
+    			<td ng-bind="tone.score"></td>
+    			<td ng-bind="data.translatedTextTone[$index].score">"</td>
+    		</tr>
+      </tbody>
+    </table>
+    <!-- <a href="/api/v1/history/"><button class="btn btn-primary">Return</button></a> -->
+	<button class="btn btn-primary" ng-click="goBack()">Return</button>
+  </div>
+</div>
