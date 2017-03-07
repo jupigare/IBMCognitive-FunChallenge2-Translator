@@ -24,7 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(domainMiddleware);
 app.use('/static', express.static(path.join(__dirname, '/public')));
-app.use('/bootstrap', express.static(path.join(__dirname, './../node_modules/bootstrap/dist')));
+app.use('/bootstrap', express.static(path.join(__dirname, './../bower_components/bootstrap/dist')));
+app.use('/d3', express.static(path.join(__dirname, './../bower_components/d3')));
 
 
 const apiRouter = new express.Router();

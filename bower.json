@@ -1,0 +1,23 @@
+{
+  "name": "bluemix-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "Jasmine Singh <jasmine.singh@jas.si>",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-messages": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "d3": "^4.7.1"
+  }
+}
