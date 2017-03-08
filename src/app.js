@@ -18,10 +18,9 @@ const app = express();
 app.set('port', config.PORT);
 
 app.use(cors());
-// app.set('views', path.join(__dirname, './views'));
-// app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, './client')));
-app.use(express.static(path.join(__dirname, './../bower_components')));
+app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '/../bower_components')));
+app.use('/assets', express.static(path.join(__dirname, '/client/assets')));
 app.use('/static', express.static(path.join(__dirname, '/client/public')));
 app.use('/partials', express.static(path.join(__dirname, '/client/partials')));
 app.use('/bootstrap', express.static(path.join(__dirname, './../bower_components/bootstrap/dist')));

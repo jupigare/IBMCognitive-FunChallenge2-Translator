@@ -6,6 +6,20 @@
   "engines": {
     "node": "7"
   },
+  "author": "Jasmine Singh (jasmine.singh@jas.si)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topcoderinc/Topcoder-StarterPack_BluemixNode.git"
+  },
+  "keywords": [
+    "starter",
+    "pack",
+    "boilerplate"
+  ],
+  "bugs": {
+    "url": "https://github.com/topcoderinc/Topcoder-StarterPack_BluemixNode/issues"
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
@@ -17,7 +31,8 @@
     "coverage": "better-npm-run spec && npm run check-coverage",
     "spec:watch": "better-npm-run spec:watch",
     "test": "npm run lint && npm run spec && npm run check-coverage && npm run e2e",
-    "check-coverage": "babel-istanbul check-coverage --statement 80 --branch 80 --function 80"
+    "check-coverage": "babel-istanbul check-coverage --statement 80 --branch 80 --function 80",
+    "postinstall": "bower install"
   },
   "betterScripts": {
     "dev": {
@@ -57,20 +72,6 @@
       }
     }
   },
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/topcoderinc/Topcoder-StarterPack_BluemixNode.git"
-  },
-  "keywords": [
-    "starter",
-    "pack",
-    "boilerplate"
-  ],
-  "bugs": {
-    "url": "https://github.com/topcoderinc/Topcoder-StarterPack_BluemixNode/issues"
-  },
   "dependencies": {
     "babel-cli": "^6.14.0",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -79,6 +80,7 @@
     "better-npm-run": "0.0.13",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
+    "bower": "^1.8.0",
     "bunyan": "^1.8.1",
     "cloudant": "^1.7.1",
     "config": "^1.24.0",
