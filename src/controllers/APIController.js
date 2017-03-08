@@ -116,7 +116,7 @@ function translate(req, res) {
           translatedText: translatedText,
           translatedTextTone: translatedTextTone,
         };
-        console.log('RESULTS:', result);
+        // console.log('RESULTS:', result);
         // res.render('results', {data: result});
         res.json(result)
       }

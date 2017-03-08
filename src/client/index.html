@@ -15,72 +15,22 @@
 <!-- <base href="/"> -->
 <script src="/angular/angular.js" charset="utf-8"></script>
 <script src="/angular-route/angular-route.js" charset="utf-8"></script>
-<script src="/angular-messages/angular-messages.js" charset="utf-8"></script>
 <script src="/assets/app.js" charset="utf-8"></script>
 <script src="/assets/factories/textsFactory.js" charset="utf-8"></script>
 <script src="/assets/controllers/textController.js" charset="utf-8"></script>
 <script src="/assets/controllers/translateController.js" charset="utf-8"></script>
-<!-- D3 -->
+<!-- D3 & Radar-Chart-D3 -->
 <link rel="stylesheet" href="/radar-chart-d3/radar-chart.min.css">
-<style type="text/css">
-  .radar-chart .area {
-    fill-opacity: 0.7;
-  }
-  .radar-chart.focus .area {
-    fill-opacity: 0.3;
-  }
-  .radar-chart.focus .area.focused {
-    fill-opacity: 0.9;
-  }
-  .area.source, .source .circle {
-    fill: #ADD8E6;
-    stroke: none;
-  }
-  .area.translation, .translation .circle {
-    fill: #ADD8E6;
-    stroke: none;
-  }
-</style>
+<link href="/static/css/radar-chart.css" rel="stylesheet">
 <script src="/d3/d3.min.js" charset="utf-8"></script>
 <script src="/radar-chart-d3/radar-chart.min.js" charset="utf-8"></script>
 <script type="text/javascript">
   RadarChart.defaultConfig.color = function() {};
-  RadarChart.defaultConfig.radius = 3;
+  RadarChart.defaultConfig.radius = 4;
   RadarChart.defaultConfig.minValue = 0;
   RadarChart.defaultConfig.maxValue = 1;
   RadarChart.defaultConfig.w=400;
   RadarChart.defaultConfig.h=400;
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-$(document).ready(function() { 
-  var sourceTextTone = [
-    {
-      className: 'source',
-      axes: [
-        {axis: "Openness", value:   0.401986, yOffset: 10},
-        {axis: "Conscientiousness", value: 0.292696},
-        {axis: "Extraversion", value: 0.53626},
-        {axis: "Agreeableness", value: 0.610826},
-        {axis: "Emotional Range", value: 0.319731, xOffset: -20}
-      ]
-    }
-  ];
-  var translatedTextTone = [
-    {
-      className: 'translation',
-      axes: [
-        {axis: "Openness", value: 0.286739, yOffset: 10},
-        {axis: "Conscientiousness", value: 0.274434},
-        {axis: "Extraversion", value: 0.543325},
-        {axis: "Agreeableness", value: 0.599483},
-        {axis: "Emotional Range", value: 0.290972, xOffset: -20}
-      ]
-    }
-  ];
-  RadarChart.draw(".chart-container-source", sourceTextTone);
-  RadarChart.draw(".chart-container-translation", translatedTextTone);
-});
 </script>
 </head>
 <body ng-controller="textController">

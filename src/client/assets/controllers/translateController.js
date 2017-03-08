@@ -12,11 +12,11 @@ function(TextsFactory, $scope, $route, $routeParams, $location, $filter) {
 
 	TextsFactory.translate($routeParams.sourceText, $routeParams.destinationLanguageCode, function(data) {
 		// console.log("(angular translateController) Translating text:", $scope.tr);
-		console.log("RESULTS:",data);
+		// console.log("RESULTS:",data);
+		// $scope.data = data;
     $scope.sourceText = data.sourceText;
     $scope.translatedText = data.translatedText;
     $scope.destinationLanguage = data.destinationLanguage;
-		// $scope.data = data;
 		$scope.sourceTextTone = [
 	    {
 	      className: 'source',
